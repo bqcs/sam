@@ -860,7 +860,7 @@ def plot_results(img, results, output_file='output.jpg'):
     plt.figure(figsize=(12, 8))
     plt.imshow(img)
     nb_objects = len(results["scores"])
-    print(f"found {nb_objects} object(s)")
+    print(f"检测到 {nb_objects} 个物体")
     for i in range(nb_objects):
         color = COLORS[i % len(COLORS)]
         plot_mask(results["masks"][i].squeeze(0).cpu(), color=color)
@@ -875,9 +875,11 @@ def plot_results(img, results, output_file='output.jpg'):
             color=color,
             relative_coords=False,
         )
-
+    # 保存为 .jpg 文件
     plt.savefig(output_file, format='jpg', dpi=300)
-    plt.close()
+    plt.close()  # 关闭图形，释放内存
+
+
 
 def single_visualization(img, anns, title):
     """
@@ -944,3 +946,4 @@ def load_frame(frame):
     else:
         raise ValueError(f"Invalid video frame type: {type(frame)=}")
     return img
+
